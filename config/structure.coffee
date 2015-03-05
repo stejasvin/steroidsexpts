@@ -11,9 +11,9 @@ module.exports =
     }
 
     {
-      title: "Geo"
-      id: "geolocation"
-      location: "geolocation#index"
+      title: "Register"
+      id: "register"
+      location: "RegisterForm#index"
     }
   ]
 

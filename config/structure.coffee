@@ -9,15 +9,11 @@ module.exports =
       id: "index"
       location: "example#getting-started" # Supersonic module#view type navigation
     }
+
     {
-      title: "Settings"
-      id: "settings"
-      location: "example#settings"
-    }
-    {
-      title: "Internet"
-      id: "internet"
-      location: "http://google.com" # URLs are supported!
+      title: "Geo"
+      id: "geolocation"
+      location: "geolocation#index"
     }
   ]
 

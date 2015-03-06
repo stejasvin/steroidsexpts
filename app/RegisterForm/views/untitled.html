@@ -1,0 +1,38 @@
+<script type="text/javascript" charset="utf-8" src="/cordova.js"></script
+    <script type="text/javascript" charset="utf-8" src="/components/steroids-js/steroids.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+    // Wait for device API libraries to load
+    //
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFileSystemSuccess, fail);
+        window.resolveLocalFileSystemURL("file:///example.txt", onResolveSuccess, fail);
+    }
+
+    function onFileSystemSuccess(fileSystem) {
+        console.log(fileSystem.name);
+        steroids.logger.log('Opened file system: ' + fileSystem.name);
+    }
+
+    function onResolveSuccess(fileEntry) {
+        console.log(fileEntry.name);
+        steroids.logger.log('Opened file: ' + fileEntry.name);
+    }
+
+    function fail(evt) {
+        console.log(evt.target.error.code);
+        steroids.logger.log(evt.target.error.code);
+
+    }
+
+
+
+    </script>
+
+    <div>
+    <button class="button button-block button-positive" ng-click="writeData()">Create file</button>
+</div>

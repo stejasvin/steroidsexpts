@@ -12,146 +12,94 @@ steroids.logger.log("Inside registerForm indexController");
     //
     document.addEventListener("deviceready", function() {
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, $scope.fail);
-        steroids.logger.log("Inside dr");
+        // steroids.logger.log("Inside dr");
     }, false);
 
-    // Cordova is ready
-    //
-    function onDeviceReady() {
-        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, $scope.fail);
-        //steroids.logger.log("Inside dr");
-    }
+    // // Cordova is ready
+    // //
+    // function onDeviceReady() {
+    //     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, $scope.fail);
+    //     steroids.logger.log("Inside dr");
+    // }
 
     function gotFS(fileSystem) {
-        fileSystem.root.getFile("readme5.txt", {create: true}, 
-        	function(fileEntry) {
-		        fileEntry.createWriter(function(writer) {
-					//alert("Inside write")
-		        	// writer.onwriteend = function(evt) {
-		         //    //console.log("contents of file now 'some sample text'");
-			        //     writer.truncate(11);  
-			        //     writer.onwriteend = function(evt) {
-			        //         //console.log("contents of file now 'some sample'");
-			        //         writer.seek(4);
-			        //         writer.write(" different text");
-			        //         writer.onwriteend = function(evt){
-			        //             //console.log("contents of file now 'some different text'");
-			        //         }
-			        //     };
-			        // };
-			        writer.onwriteend = function(evt) {
-	                    alert("write success");
-	                };
-		        	writer.write("some sample text");
+        fileSystem.root.getFile("readme4.txt", {create: true, exclusive: false},
+             function(fileEntry) {
+                //alert("1 "+fileEntry.fullpath);
+                fileEntry.file(
+                    function(file) {
+                        //alert("2");
+                        var reader = new FileReader();
+                        // reader.onloadstart = function(evt) {
+                        //     alert("Read start ");
+                        // };
+
+                        reader.onloadend = function(evt) {
+                            alert("Read success "+reader.result);
+                        };
+                        reader.readAsText(file);
+                    }
+                    );
+             }
+            , $scope.fail);
+
+
+
+//Writing working
+
+ //        fileSystem.root.getFile("readme5.txt", {create: true}, 
+ //        	function(fileEntry) {
+	// 	        fileEntry.createWriter(function(writer) {
+	// 				writer.onwriteend = function(evt) {
+	//                     alert("write success");
+	//                 };
+	// 	        	writer.write("some sample text");
 		    	
-		    	}
-	    	, $scope.fail);
-	        //alert("Inside fe");
-	    }
-	, $scope.fail);
+	// 	    	}
+	//     	, $scope.fail);
+	//         //alert("Inside fe");
+	//     }
+	// , $scope.fail);
         
         //alert("Inside fs");
     }
 
-    // function gotFileEntry(fileEntry) {
-    //     //alert(''+fileEntry.createWriter(gotFileWriter, fail));
-    //     alert("Inside fe");
+    // function gotFS(fileSystem) {
+    //     fileSystem.root.getFile("readme.txt", null, gotFileEntry, fail);
     // }
 
-    $scope.gotFileWriter = function(writer) {
-    	alert("Inside write");
-        writer.onwriteend = function(evt) {
-            console.log("contents of file now 'some sample text'");
-            writer.truncate(11);  
-            writer.onwriteend = function(evt) {
-                console.log("contents of file now 'some sample'");
-                writer.seek(4);
-                writer.write(" different text");
-                writer.onwriteend = function(evt){
-                    console.log("contents of file now 'some different text'");
-                }
-            };
-        };
-        writer.write("some sample text");
-    }
+    // function gotFileEntry(fileEntry) {
+    //     fileEntry.file(gotFile, fail);
+    // }
 
+    // function gotFile(file){
+    //     readDataUrl(file);
+    //     readAsText(file);
+    // }
+
+    // function readDataUrl(file) {
+    //     var reader = new FileReader();
+    //     reader.onloadend = function(evt) {
+    //         console.log("Read as data URL");
+    //         console.log(evt.target.result);
+    //     };
+    //     reader.readAsDataURL(file);
+    // }
+
+    // function readAsText(file) {
+    //     var reader = new FileReader();
+    //     reader.onloadend = function(evt) {
+    //         console.log("Read as text");
+    //         console.log(evt.target.result);
+    //     };
+    //     reader.readAsText(file);
+    // }
+
+   
     $scope.fail = function(error) {
         alert(error.code);
     }
-
-    // // function gotFileEntry(fileEntry) {
-    // //     fileEntry.createWriter(gotFileWriter, fail);
-    // //     alert("fe");
-    // // }
-
-    // // function gotFileWriter(writer) {
-    // // 	alert("writer");
-    // //     writer.onwriteend = function(evt) {
-    // //         console.log("contents of file now 'some sample text'");
-    // //         writer.truncate(11);
-    // //         writer.onwriteend = function(evt) {
-    // //             console.log("contents of file now 'some sample'");
-    // //             writer.seek(4);
-    // //             writer.write(" different text");
-    // //             writer.onwriteend = function(evt){
-    // //                 console.log("contents of file now 'some different text'");
-    // //             }
-    // //         };
-    // //     };
-    // //     writer.write("some sample text");
-    // // }
-
-    // function fail(error) {
-    //     alert("myerror: "+error.code);
-    // }
-
-    // document.addEventListener("deviceready", onDeviceReady, false);
-
-    // // device APIs are available
-    // //
-    // function onDeviceReady() {
-    //     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFileSystemSuccess, fail);
-    //     window.resolveLocalFileSystemURL("file:///example.txt", onResolveSuccess, fail);
-    //     //steroids.logger.log("1");
-    //     alert('deviceready');
-    // }
-
-    // function onFileSystemSuccess(fileSystem) {
-    //     alert(fileSystem.name);
-    //     //steroids.logger.log("2");
-    //     //alert(deviceready);
-    // }
-
-    // function onResolveSuccess(fileEntry) {
-    //     alert(fileEntry.name);
-    //     //steroids.logger.log("3");
-    // }
-
-    // function fail(evt) {
-    //     alert(evt.target.error.code);
-    //     //steroids.logger.log("4");
-    // }
-
- //    $scope.takePic = function(){
-	// 	navigator.camera.getPicture($scope.onSuccess, onFail, { quality: 50,
-	// 	destinationType: Camera.DestinationType.FILE_URI });
-	// 	steroids.logger.log("Inside takePic");
-	// }
-
-	// $scope.onSuccess = function(imageURI) {
- //    	// var image = document.getElementById('myImage');
- //    	// image.src = imageURI;
- //    	steroids.logger.log("Inside success ");
- //    	steroids.logger.log(imageURI);
- //    	alert('success' + imageURI);
-    	
-	// }
-
-	// function onFail(message) {
- //    	alert('Failed because: ' + message);
- //    	steroids.logger.log("Inside success "+imageURI);
-	// }
-
+   
 });
 
 
